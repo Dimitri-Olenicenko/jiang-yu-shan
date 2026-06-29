@@ -663,10 +663,11 @@ html.ru [data-ru]{display:revert}
       <figure data-c="practice"><img src="assets/6.jpg" alt="Mansur Kohaku kneeling on the beach with the katana drawn" loading="lazy"><figcaption><span data-en>The draw &middot; by the sea</span><span data-ru>Обнажение клинка &middot; у моря</span></figcaption></figure>
       <figure data-c="practice"><img src="assets/5.jpg" alt="Mansur Kohaku kneeling before sumi-e calligraphy beside samurai armour" loading="lazy"><figcaption><span data-en>Sumi-e &middot; the brush and the armour</span><span data-ru>Суми-э &middot; кисть и доспех</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/ach-17th-samurai.jpg" alt="The samurai naming certificate conferring the 17th-generation rank on Mansur Kohaku" loading="lazy"><figcaption><span data-en>17th Generation Samurai &middot; the conferred name</span><span data-ru>Самурай 17-го поколения &middot; дарованное имя</span></figcaption></figure>
-      <figure data-c="achievements"><img src="assets/ach-kohaku-name.jpg" alt="The calligraphy certificate naming Mansur as Kohaku, signed and sealed by sensei Zen Takai" loading="lazy"><figcaption><span data-en>The name Kohaku &middot; certified by sensei Zen Takai</span><span data-ru>Имя Кохаку &middot; заверено сенсеем Зеном Такаем</span></figcaption></figure>
+      <figure data-c="achievements"><img src="assets/ach-kohaku-name.jpg" alt="The calligraphy certificate naming Mansur as Kohaku, signed and sealed by sensei Zen Takai" loading="lazy"><figcaption><span data-en>Accredited by 16th generation samurai sensei Zen Takai</span><span data-ru>Аккредитовано самураем 16-го поколения сенсеем Зеном Такаем</span></figcaption></figure>
+      <figure data-c="achievements"><img src="assets/ach-tea-firstplace.jpg" alt="Riga Food 2025 diploma — Riga Tea Days tea-brewing contest, First Place, Mansur Abdulmuslimov" loading="lazy"><figcaption><span data-en>First Place &middot; Tea Brewing, Riga Tea Days 2025</span><span data-ru>Первое место &middot; чайная церемония, Рижские чайные дни 2025</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/ach-shaolin-2024.jpg" alt="Shaolin Temple Europe certificate of participation, Shaolin Summercamp 2024, signed by Shi Yan Lei and Shi Heng Yi" loading="lazy"><figcaption><span data-en>Shaolin Temple Europe &middot; Summercamp 2024</span><span data-ru>Шаолиньский храм Европы &middot; летний лагерь 2024</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/ach-shaolin-2023.jpg" alt="Shaolin Temple Europe certificate, Shaolin Summercamp 2023, signed by Shifu Shi Yan Lei and Shifu Shi Heng Yi" loading="lazy"><figcaption><span data-en>Shaolin Temple Europe &middot; Summercamp 2023</span><span data-ru>Шаолиньский храм Европы &middot; летний лагерь 2023</span></figcaption></figure>
-      <figure data-c="achievements"><img src="assets/ach-judo-1dan.jpg" alt="Judo grading certificate awarding Mansur the 1 Dan rank, LSPA Judo School" loading="lazy"><figcaption><span data-en>Judo &middot; 1 Dan, LSPA Judo School</span><span data-ru>Дзюдо &middot; 1 дан, школа дзюдо ЛСПА</span></figcaption></figure>
+      <figure data-c="achievements"><img src="assets/ach-judo-3kyu.jpg" alt="Judo grading certificate, LSPA Judo School, 2009" loading="lazy"><figcaption><span data-en>Judo &middot; LSPA Judo School</span><span data-ru>Дзюдо &middot; школа дзюдо ЛСПА</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/ach-karate-passport.jpg" alt="Shotokan Karate-do Federation grading passport, Republic of Latvia" loading="lazy"><figcaption><span data-en>Shotokan Karate-do &middot; the grading passport</span><span data-ru>Сётокан карате-до &middot; аттестационный паспорт</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/3.jpg" alt="Mansur Kohaku pouring tea at the Riga Tea Days tea contest" loading="lazy"><figcaption><span data-en>Riga Tea Days &middot; the tea contest</span><span data-ru>Рижские чайные дни &middot; чайный турнир</span></figcaption></figure>
       <figure data-c="achievements"><img src="assets/4.jpg" alt="Mansur Kohaku holding a tea vessel at the Riga Tea Days festival" loading="lazy"><figcaption><span data-en>The way of tea &middot; Riga Tea Days</span><span data-ru>Путь чая &middot; Рижские чайные дни</span></figcaption></figure>
@@ -994,17 +995,23 @@ if(isSafari){ document.documentElement.classList.add('no-katana'); }
   addEventListener('scroll',()=>{ nav.classList.toggle('solid', scrollY>60); },{passive:true});
 
   // gallery filter (with graceful empty-state for categories not yet supplied)
+  // NOTE: "All" shows every category EXCEPT achievements — those appear only under their own tab.
   const tabs=document.getElementById('gtabs'), gal=document.getElementById('gallery'), figs=gal?[...gal.querySelectorAll('figure')]:[];
   let emptyMsg=null;
-  if(tabs) tabs.addEventListener('click',e=>{ const b=e.target.closest('.gtab'); if(!b)return;
-    tabs.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on')); b.classList.add('on');
-    const f=b.dataset.f; let shown=0;
-    figs.forEach(fig=>{ const vis=(f==='all'||fig.dataset.c===f); fig.style.display=vis?'':'none'; if(vis)shown++; });
+  function applyFilter(f){
+    let shown=0;
+    figs.forEach(fig=>{ const vis=(f==='all' ? fig.dataset.c!=='achievements' : fig.dataset.c===f); fig.style.display=vis?'':'none'; if(vis)shown++; });
     if(emptyMsg){ emptyMsg.remove(); emptyMsg=null; }
     if(shown===0){ emptyMsg=document.createElement('div'); emptyMsg.style.cssText='break-inside:avoid;padding:30px;text-align:center;color:var(--muted);font-style:italic;font-size:13px;border:1px dashed var(--line);border-radius:6px';
       const isRu=document.documentElement.classList.contains('ru');
       emptyMsg.textContent=isRu?'Фотографии этой категории скоро появятся.':'Photographs for this category are coming soon.';
-      gal.appendChild(emptyMsg); } });
+      gal.appendChild(emptyMsg); }
+  }
+  if(tabs) tabs.addEventListener('click',e=>{ const b=e.target.closest('.gtab'); if(!b)return;
+    tabs.querySelectorAll('.gtab').forEach(t=>t.classList.remove('on')); b.classList.add('on');
+    applyFilter(b.dataset.f); });
+  // apply the default ("All") on load so achievements are hidden until their tab is clicked
+  applyFilter('all');
 
   // magnetic hover on key elements
   if(!reduce) document.querySelectorAll('.btn,.power,.offer,.rung,.vcard').forEach(el=>{
