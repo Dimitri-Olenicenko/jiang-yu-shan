@@ -63,6 +63,9 @@ body{
 /* hide native cursor everywhere; katana takes over (pointer restored on touch) */
 a,button{cursor:none}
 @media (hover:none){ body,a,button{cursor:auto} #katana{display:none!important} }
+/* Safari / Apple: the custom katana cursor renders poorly — fall back to the native cursor (set by JS) */
+html.no-katana, html.no-katana a, html.no-katana button{cursor:auto}
+html.no-katana #katana, html.no-katana #trail{display:none!important}
 
 h1,h2,h3,h4,.serif{font-family:'Cormorant Garamond','Georgia',serif;font-weight:400;letter-spacing:.01em}
 .jp{font-family:'Noto Serif JP',serif}
@@ -96,8 +99,8 @@ nav.top.solid{background:rgba(251,244,228,.96);box-shadow:0 1px 0 var(--line);ba
 .brandmark{text-decoration:none}
 .brandmark .brand-enso{width:42px;height:42px;flex:0 0 auto;display:block;object-fit:contain}
 .brandmark .nm{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);letter-spacing:.04em;line-height:1}
-/* calligraphy brandmark — Yuji Syuku brush face */
-.brandmark .nm.cal{font-family:'Yuji Syuku',serif;font-size:23px;letter-spacing:.02em;line-height:1.05;border:0;text-decoration:none}
+/* poster-style wordmark — matches the "RONIN DŌ" lockup on the hero artwork */
+.brandmark .nm.mark{font-family:'Cormorant Garamond','Georgia',serif;font-weight:600;font-size:21px;letter-spacing:.20em;text-transform:uppercase;color:var(--ink);line-height:1;border:0;text-decoration:none}
 .brandmark .nm small{display:none}
 nav.top ul{list-style:none;display:flex;gap:26px}
 nav.top ul a{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:600;padding:6px 0;position:relative;transition:color .2s}
@@ -265,7 +268,7 @@ nav.top ul a:hover{color:var(--bronze-d)}nav.top ul a:hover::after{width:100%}
 /* ---------- FOOTER ---------- */
 footer{background:#1C1206;color:rgba(251,244,228,.7);padding:54px 0 30px}
 footer .frow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:24px;align-items:flex-start}
-footer .fbrand{font-family:'Cormorant Garamond',serif;font-size:26px;color:var(--bone)}
+footer .fbrand{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;letter-spacing:.18em;text-transform:uppercase;color:var(--bone)}
 footer .fbrand small{display:block;font-family:'Montserrat',sans-serif;font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-top:4px}
 footer a{color:rgba(251,244,228,.7);text-decoration:none;font-size:12px;display:block;margin:5px 0;transition:.2s}
 footer a:hover{color:var(--amber)}
@@ -426,7 +429,7 @@ html.ru [data-ru]{display:revert}
   <a href="#hero" class="brandmark" aria-label="Ronin-do home">
     <!-- the real ink-brush enso (from the intro), paper alpha-knocked-out to PNG — fully transparent, no box -->
     <img class="brand-enso" src="assets/enso-mark.png" alt="" aria-hidden="true">
-    <span class="nm cal">Ronin&#8209;do</span>
+    <span class="nm mark">RONIN D&#332;</span>
   </a>
   <div class="lang" id="lang"><button class="on" data-l="en">EN</button><button data-l="ru">RU</button></div>
 </nav>
@@ -693,7 +696,7 @@ html.ru [data-ru]{display:revert}
   <div class="wrap">
     <div class="frow">
       <div>
-        <div class="fbrand">Ronin&#8209;do<small><span data-en>Mansur Kohaku &middot; 17th Generation Samurai</span><span data-ru>Мансур Кохаку &middot; самурай 17-го поколения</span></small></div>
+        <div class="fbrand">RONIN D&#332;<small><span data-en>Mansur Kohaku &middot; 17th Generation Samurai</span><span data-ru>Мансур Кохаку &middot; самурай 17-го поколения</span></small></div>
         <p style="max-width:340px;margin-top:12px;font-size:12.5px;color:rgba(251,244,228,.55)"><span data-en>A masterless samurai embodies inner freedom through independence and spiritual balance &mdash; between Chechen Adat and Japanese Bushido.</span><span data-ru>Самурай без господина воплощает внутреннюю свободу через независимость и духовное равновесие &mdash; между чеченским адатом и японским бусидо.</span></p>
       </div>
       <div class="fcol">
@@ -727,6 +730,9 @@ html.ru [data-ru]{display:revert}
 
 <script>
 const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
+// Safari / Apple WebKit: the custom katana cursor + trail render poorly — use the native cursor instead.
+const isSafari = (function(){ var ua=navigator.userAgent; return /^((?!chrome|android|crios|fxios|edg).)*safari/i.test(ua) || (/AppleWebKit/.test(ua) && /Apple/.test(navigator.vendor) && !/Chrome|CriOS|FxiOS/.test(ua)); })();
+if(isSafari){ document.documentElement.classList.add('no-katana'); }
 
 /* =====================================================================
    0. INTRO BLADE-WIPE + SYMBOL SELF-DRAW
@@ -828,7 +834,7 @@ const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
 ===================================================================== */
 (function(){
   const k = document.getElementById('katana');
-  if(!k) return;
+  if(!k || isSafari){ if(k) k.style.display='none'; return; }
   let tx=innerWidth/2,ty=innerHeight/2,cx=tx,cy=ty,vx=0;
   window.addEventListener('mousemove',e=>{ vx=e.clientX-tx; tx=e.clientX; ty=e.clientY; },{passive:true});
   (function loop(){ cx+=(tx-cx)*.3; cy+=(ty-cy)*.3; k.style.left=cx+'px'; k.style.top=cy+'px'; requestAnimationFrame(loop); })();
@@ -1016,7 +1022,7 @@ const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
    5. R3 — BLADE TRAIL (motion streak following the katana)
 ===================================================================== */
 (function(){
-  const c=document.getElementById('trail'); if(!c||reduce){ if(c)c.style.display='none'; return; }
+  const c=document.getElementById('trail'); if(!c||reduce||isSafari){ if(c)c.style.display='none'; return; }
   const x=c.getContext('2d'); let W,H,pts=[],lx=0,ly=0;
   function size(){ W=c.width=innerWidth; H=c.height=innerHeight; } size(); addEventListener('resize',size);
   addEventListener('mousemove',e=>{
