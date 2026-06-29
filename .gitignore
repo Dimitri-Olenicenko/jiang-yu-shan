@@ -1,0 +1,5 @@
+# build/preview artifacts
+_*.png
+*.tmp
+.DS_Store
+node_modules/
