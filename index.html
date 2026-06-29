@@ -7,7 +7,7 @@
 <meta name="description" content="Ronin-do, the school of Mansur Kohaku. A masterless samurai between two codes: Chechen Adat and Japanese Bushido. Power of the body, the breath, and the hand that makes.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Noto+Serif+JP:wght@300;500;700&family=Yuji+Syuku&display=swap" rel="stylesheet">
 <style>
 /* ======================================================================
    RONIN-DO  ·  Mansur Kohaku
@@ -71,8 +71,14 @@ nav.top{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items
 nav.top.solid{background:rgba(251,244,228,.96);box-shadow:0 1px 0 var(--line);backdrop-filter:blur(10px)}
 .brandmark{display:flex;align-items:center;gap:11px}
 .brandmark svg{width:34px;height:34px}
+/* enso brandmark — a crisp inline-SVG ink circle (matches the loading enso) instead of the JPG,
+   so it is FULLY transparent with no white paper box on the gradient nav, sharp at any size */
+.brandmark .brand-enso{width:40px;height:40px;flex:0 0 auto;display:block}
 .brandmark .nm{font-family:'Cormorant Garamond',serif;font-size:20px;color:var(--ink);letter-spacing:.04em;line-height:1}
+/* calligraphy brandmark — Yuji Syuku brush face */
+.brandmark .nm.cal{font-family:'Yuji Syuku',serif;font-size:23px;letter-spacing:.02em;line-height:1.05}
 .brandmark .nm small{display:block;font-family:'Montserrat',sans-serif;font-size:8px;letter-spacing:.28em;text-transform:uppercase;color:var(--bronze-d);margin-top:2px}
+.brandmark .nm.cal small{font-family:'Yuji Syuku',serif;font-size:11px;letter-spacing:.12em;text-transform:none;margin-top:3px;color:var(--bronze-d)}
 nav.top ul{list-style:none;display:flex;gap:26px}
 nav.top ul a{font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink2);text-decoration:none;font-weight:600;padding:6px 0;position:relative;transition:color .2s}
 nav.top ul a::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1.5px;background:var(--ember);transition:width .25s}
@@ -101,6 +107,12 @@ nav.top ul a:hover{color:var(--bronze-d)}nav.top ul a:hover::after{width:100%}
 .hero-sub{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(17px,2.4vw,24px);color:var(--ink2);margin-top:14px;max-width:680px;opacity:0;animation:rise 1s .7s forwards}
 .hero-tags{display:flex;gap:9px;flex-wrap:wrap;justify-content:center;margin-top:26px;opacity:0;animation:rise 1s .9s forwards}
 .htag{font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;padding:6px 14px;border:1px solid var(--line);color:var(--bronze-d);background:rgba(255,178,62,.08);border-radius:2px}
+/* phone: the tags wrap to several rows and crowd the scroll cue — give the hero room and drop the cue lower */
+@media(max-width:560px){
+  #hero{padding:96px 18px 92px}
+  .hero-tags{margin-top:20px}
+  .scroll-cue{bottom:18px}
+}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
 .scroll-cue{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--muted);opacity:0;animation:rise 1s 1.3s forwards,bob 2s 1.3s infinite}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
@@ -379,17 +391,24 @@ html.ru [data-ru]{display:revert}
 <!-- NAV -->
 <nav class="top" id="nav">
   <a href="#hero" class="brandmark" aria-label="Ronin-do home">
-    <svg viewBox="0 0 100 100" aria-hidden="true">
-      <!-- enso ink circle: open at top-right, irregular, with a broken detached fleck -->
-      <path d="M 70 20 C 88 32 90 64 68 80 C 46 95 16 86 11 60 C 7 38 24 16 50 13"
-        fill="none" stroke="#241808" stroke-width="6" stroke-linecap="round"/>
-      <!-- detached brush flecks near the opening (not connected) -->
-      <path d="M 60 14 C 64 12 69 13 72 16" fill="none" stroke="#241808" stroke-width="4.5" stroke-linecap="round" opacity=".85"/>
-      <circle cx="76" cy="18" r="1.8" fill="#241808" opacity=".6"/>
-      <!-- ember glint -->
-      <circle cx="70" cy="20" r="2.4" fill="#F2992B"/>
+    <!-- ink-brush enso (matches the loading circle) as inline SVG — fully transparent, no white box -->
+    <svg class="brand-enso" viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <linearGradient id="ensoInk" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#1c1408"/><stop offset="1" stop-color="#3a2a12"/>
+        </linearGradient>
+      </defs>
+      <!-- irregular open circle, tapered like a single brush sweep (thick at start, thinning to the gap) -->
+      <path d="M68 17 C30 6 6 38 13 66 C19 90 56 96 78 78 C92 66 93 40 74 26"
+            fill="none" stroke="url(#ensoInk)" stroke-width="8" stroke-linecap="round"
+            stroke-dasharray="0.1 0" pathLength="100"/>
+      <!-- detached brush flecks at the opening -->
+      <path d="M60 14 C64 12 69 13 73 16" fill="none" stroke="#241808" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+      <circle cx="78" cy="17" r="1.6" fill="#241808" opacity=".55"/>
+      <!-- ember glint where the stroke begins -->
+      <circle cx="68" cy="17" r="2.6" fill="#F2992B"/>
     </svg>
-    <span class="nm">Ronin-do<small>Mansur Kohaku</small></span>
+    <span class="nm cal">Ronin&#8209;do</span>
   </a>
   <div class="lang" id="lang"><button class="on" data-l="en">EN</button><button data-l="ru">RU</button></div>
 </nav>
@@ -402,7 +421,7 @@ html.ru [data-ru]{display:revert}
   </div>
 
   <div class="hero-kanji jp">&#28010;&#20154;&#9670;&#29827;&#29957;</div>
-  <p class="hero-sub slashable" style="margin-top:18px"><span data-en>The dojo of <b>Mansur Kohaku</b> &mdash; a masterless samurai who embodies inner freedom through independence and spiritual balance.</span><span data-ru>&#1044;&#1086;&#1076;&#1079;&#1112;&#1086; <b>&#1052;&#1072;&#1085;&#1089;&#1091;&#1088;&#1072; &#1050;&#1086;&#1093;&#1072;&#1082;&#1091;</b> &mdash; самурай без господина, обретающий внутреннюю свободу через независимость и духовное равновесие.</span></p>
+  <p class="hero-sub" style="margin-top:18px"><span data-en>The dojo of <b>Mansur Kohaku</b> &mdash; a masterless samurai who embodies inner freedom through independence and spiritual balance.</span><span data-ru>&#1044;&#1086;&#1076;&#1079;&#1112;&#1086; <b>&#1052;&#1072;&#1085;&#1089;&#1091;&#1088;&#1072; &#1050;&#1086;&#1093;&#1072;&#1082;&#1091;</b> &mdash; самурай без господина, обретающий внутреннюю свободу через независимость и духовное равновесие.</span></p>
   <div class="hero-tags">
     <span class="htag"><span data-en>17th Generation Samurai</span><span data-ru>Самурай 17-го поколения</span></span>
     <span class="htag"><span data-en>Chechen Adat &times; Japanese Bushido</span><span data-ru>Чеченский адат &times; японский бусидо</span></span>
@@ -418,7 +437,7 @@ html.ru [data-ru]{display:revert}
     <h2 class="sec-title cut-in slashable"><span data-en>A man between two codes.</span><span data-ru>Человек между двумя кодексами.</span></h2>
     <div class="way-grid">
       <div>
-        <p class="lede fade-up"><span data-en>A ronin (&#28010;&#20154;, "wave-man") is the masterless samurai &mdash; the warrior who keeps every virtue by inner conviction alone, answering to no lord, only to the code. The rank is not self-claimed: on the island of Tsushima, in a temple raised around the year 600, sensei Zen Takai named <strong>Mansur Kohaku</strong> a samurai of the seventeenth generation. He carries that honour as a free man &mdash; a son of the mountains who stands exactly where two honour-codes meet.</span><span data-ru>Ронин (&#28010;&#20154;, «человек-волна») &mdash; самурай без господина, воин, что хранит каждую добродетель лишь внутренним убеждением, отвечая не господину, а кодексу. Это звание не присваивают себе сами: на острове Цусима, в храме, построенном около 600 года, сенсей Зен Такай посвятил <strong>Мансура Кохаку</strong> в самураи семнадцатого поколения. Он несёт эту честь как вольный человек &mdash; сын гор, стоящий ровно там, где встречаются два кодекса чести.</span></p>
+        <p class="lede fade-up"><span data-en>A ronin (&#28010;&#20154;, "wandering-man") is the masterless samurai &mdash; the warrior who keeps every virtue by inner conviction alone, answering to no lord, only to the code. The rank is not self-claimed: on the island of Tsushima, in a temple raised around the year 600, sensei Zen Takai named <strong>Mansur Kohaku</strong> a samurai of the seventeenth generation. He carries that honour as a free man &mdash; a son of the mountains who stands exactly where two honour-codes meet.</span><span data-ru>Ронин (&#28010;&#20154;, «странствующий человек») &mdash; самурай без господина, воин, что хранит каждую добродетель лишь внутренним убеждением, отвечая не господину, а кодексу. Это звание не присваивают себе сами: на острове Цусима, в храме, построенном около 600 года, сенсей Зен Такай посвятил <strong>Мансура Кохаку</strong> в самураи семнадцатого поколения. Он несёт эту честь как вольный человек &mdash; сын гор, стоящий ровно там, где встречаются два кодекса чести.</span></p>
         <div class="divider fade-up"><span data-en>Adat meets Bushido</span><span data-ru>Адат встречает бусидо</span></div>
         <p class="lede fade-up"><span data-en><strong>Chechen Adat</strong> is the honour code of a masterless, mountain people &mdash; "there have been neither princes nor serfs among the Chechens." <strong>Japanese Bushido</strong> is the warrior path of discipline, restraint and honour above life. The two share almost everything &mdash; courage as self-control, mercy to the defeated, the binding word, the sacred guest &mdash; and diverge on one thing: Bushido serves a lord; Adat serves no one. <em>That gap is exactly where the ronin lives</em> &mdash; and it is no metaphor here, but a man who was given the samurai's name and yet bends the knee to no one. From it he founded his own dojo, <strong>Ronin-do</strong>: honour without a master, discipline that answers only to itself, a state of mastery a man cultivates in himself and refines every day.</span><span data-ru><strong>Чеченский адат</strong> &mdash; кодекс чести вольного горского народа: «не было у чеченцев ни князей, ни рабов». <strong>Японский бусидо</strong> &mdash; путь воина: дисциплина, сдержанность и честь превыше жизни. Оба разделяют почти всё &mdash; мужество как самообладание, милосердие к побеждённому, нерушимое слово, святость гостя &mdash; и расходятся в одном: бусидо служит господину, адат не служит никому. <em>Именно в этом зазоре живёт ронин</em> &mdash; и здесь это не метафора, а человек, которому дано самурайское имя и который всё же ни перед кем не преклоняет колен. Из этого он основал собственное додзё, <strong>Ronin-do</strong>: честь без господина, дисциплина, отвечающая лишь себе, &mdash; состояние мастера, которое человек взращивает в себе и оттачивает каждый день.</span></p>
       </div>
@@ -807,41 +826,81 @@ const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   const c=document.getElementById('wind'), x=c.getContext('2d');
   if(reduce){ c.style.display='none'; return; }
   let W,H,parts=[],t=0,gust=0,paused=false;
-  const COLORS=['#F2992B','#FFB23E','#C07A35','#D9A23B','#8B1A2F'];
+  // soft cherry-blossom palette — blush whites through warm rose, with one deeper accent
+  const COLORS=[
+    ['#ffe9f1','#ffc9dd'],  // near-white blush
+    ['#ffd7e6','#fbb6cf'],  // pale pink
+    ['#ffc2d6','#f49bb8'],  // rose
+    ['#ffb8d0','#ef8fb0'],  // warm rose
+    ['#fff2f6','#ffd0e0']   // palest
+  ];
   function size(){ W=c.width=innerWidth; H=c.height=innerHeight; }
   size(); addEventListener('resize',size);
   document.addEventListener('visibilitychange',()=>{paused=document.hidden;});
-  const N = innerWidth<700?34:64;
-  for(let i=0;i<N;i++){
-    const depth=Math.random();                 // 0 far … 1 near
-    parts.push({
-      x:Math.random()*W, y:Math.random()*H,
-      s:(0.8+depth*3.6),
-      sp:(.2+depth*1.3),
-      a:Math.random()*Math.PI*2,
-      drift:.4+Math.random()*.9,
+  const N = innerWidth<700?30:56;
+  function spawn(reset){
+    const depth=Math.random();                       // 0 far … 1 near
+    return {
+      x:Math.random()*W, y: reset? -16-Math.random()*H*0.3 : Math.random()*H,
+      depth,
+      s:(3.2+depth*5.4),                              // petal length px
+      vy:(0.18+depth*0.7),                            // base fall speed (gravity, depth-scaled)
+      swayAmp:(0.5+Math.random()*1.4),                // horizontal sway breadth
+      swayPh:Math.random()*Math.PI*2,                 // sway phase
+      swaySpd:(0.6+Math.random()*0.9),                // sway frequency
+      rot:Math.random()*Math.PI*2,                    // current rotation
+      rotSpd:(-0.5+Math.random())*0.9,                // spin speed/direction
+      flipPh:Math.random()*Math.PI*2,                 // phase of the turning-over flutter
+      flipSpd:(0.8+Math.random()*1.3),                // how fast it turns over (the natural flutter)
       col:COLORS[(Math.random()*COLORS.length)|0],
-      op:.1+depth*.42,
-      petal:Math.random()<.55, depth
-    });
+      op:(0.55+depth*0.42)
+    };
   }
-  let mx=0;
-  addEventListener('mousemove',e=>{ const dx=(e.clientX/W-0.5); gust+=dx*0.4; },{passive:true});
+  for(let i=0;i<N;i++) parts.push(spawn(false));
+  addEventListener('mousemove',e=>{ const dx=(e.clientX/W-0.5); gust+=dx*0.5; },{passive:true});
+
+  // draw one cherry-blossom petal at the origin, oriented up; length L; flip = vertical foreshorten (the turn-over)
+  function petal(L, flip, c0, c1){
+    const w=L*0.62;
+    const g=x.createLinearGradient(0,-L*0.5,0,L*0.5);
+    g.addColorStop(0,c1); g.addColorStop(1,c0);
+    x.fillStyle=g;
+    x.save();
+    x.scale(1, flip);                                  // foreshorten as it turns in the air
+    x.beginPath();
+    // teardrop body with the signature notched (cleft) tip at the top
+    x.moveTo(0, L*0.5);                                // base
+    x.bezierCurveTo( w*0.95, L*0.28,  w*0.62,-L*0.34,  w*0.16,-L*0.46); // right side up to near tip
+    x.quadraticCurveTo(0,-L*0.34, -w*0.16,-L*0.46);    // the V-notch at the tip
+    x.bezierCurveTo(-w*0.62,-L*0.34, -w*0.95, L*0.28,  0, L*0.5);       // left side back to base
+    x.closePath(); x.fill();
+    // faint centre vein for realism
+    x.globalAlpha*=0.5; x.strokeStyle=c0; x.lineWidth=Math.max(0.4,L*0.045);
+    x.beginPath(); x.moveTo(0,L*0.4); x.quadraticCurveTo(0,0,0,-L*0.34); x.stroke();
+    x.restore();
+  }
+
   function frame(){
     requestAnimationFrame(frame);
     if(paused) return;
-    t+=0.01; gust*=0.94; x.clearRect(0,0,W,H);
-    const wind = 0.7 + Math.sin(t*0.6)*0.5 + gust;
-    for(const p of parts){
-      p.x += (p.sp*wind + Math.sin(t+p.a)*0.3);
-      p.y += Math.sin(t*1.3+p.a)*0.5*p.drift + 0.12 + p.depth*0.1;
-      if(p.x>W+12){ p.x=-12; p.y=Math.random()*H; }
-      if(p.x<-14){ p.x=W+10; }
-      if(p.y>H+12){ p.y=-12; }
-      x.globalAlpha=p.op; x.fillStyle=p.col;
-      if(p.petal){ x.save(); x.translate(p.x,p.y); x.rotate(p.a+t*(0.6+p.depth));
-        x.beginPath(); x.ellipse(0,0,p.s*1.8,p.s*.72,0,0,Math.PI*2); x.fill(); x.restore();
-      } else { x.beginPath(); x.arc(p.x,p.y,p.s*.7,0,Math.PI*2); x.fill(); }
+    t+=0.01; gust*=0.95; x.clearRect(0,0,W,H);
+    const wind = 0.45 + Math.sin(t*0.5)*0.35 + gust;   // gentle, breathing breeze
+    for(let i=0;i<parts.length;i++){
+      const p=parts[i];
+      // natural drift: gravity + per-petal sway + global wind (wind & sway scale with depth/size)
+      const sway = Math.sin(t*p.swaySpd + p.swayPh) * p.swayAmp;
+      p.x += sway*0.5 + wind*(0.35+p.depth*0.9);
+      p.y += p.vy + Math.abs(Math.sin(t*p.swaySpd + p.swayPh))*0.15;  // slight speed pulse with the sway
+      p.rot += p.rotSpd*0.02 + sway*0.01;               // spin, nudged by the sway
+      // recycle off-screen → respawn at the top for a continuous gentle fall
+      if(p.y>H+18 || p.x>W+24 || p.x<-24){ parts[i]=spawn(true); continue; }
+      const flip = Math.cos(t*p.flipSpd + p.flipPh);    // -1..1 → the petal turning over in the air
+      x.save();
+      x.globalAlpha=p.op;
+      x.translate(p.x,p.y);
+      x.rotate(p.rot);
+      petal(p.s, flip, p.col[0], p.col[1]);
+      x.restore();
     }
     x.globalAlpha=1;
   }
