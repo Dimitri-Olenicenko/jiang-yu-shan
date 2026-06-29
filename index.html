@@ -326,6 +326,19 @@ footer .fnote{margin-top:36px;padding-top:18px;border-top:1px solid rgba(251,244
 #lb .lbx{width:min(960px,100%);aspect-ratio:16/9;background:#000;border:1px solid var(--bronze);box-shadow:0 30px 80px rgba(0,0,0,.6);position:relative}
 #lb iframe{width:100%;height:100%;border:0}
 #lb .lbclose{position:absolute;top:-42px;right:0;color:var(--bone);font-family:'Noto Serif JP',serif;font-size:24px;background:none;border:none;cursor:none}
+/* image lightbox — opens a gallery photo full-screen */
+#imglb{position:fixed;inset:0;z-index:9600;background:rgba(20,12,4,.94);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:40px;opacity:0;transition:opacity .25s}
+#imglb.on{display:flex;opacity:1}
+#imglb figure{margin:0;max-width:min(1100px,100%);max-height:100%;display:flex;flex-direction:column;align-items:center;gap:14px}
+#imglb img{max-width:100%;max-height:82vh;object-fit:contain;border:1px solid var(--bronze);box-shadow:0 30px 90px rgba(0,0,0,.7);background:#1c1408}
+#imglb figcaption{font-family:'Cormorant Garamond',serif;font-size:16px;letter-spacing:.02em;color:var(--bone);text-align:center;opacity:.92}
+#imglb .ilclose{position:fixed;top:22px;right:28px;color:var(--bone);font-family:'Noto Serif JP',serif;font-size:30px;line-height:1;background:none;border:none;cursor:pointer;opacity:.8;transition:opacity .2s}
+#imglb .ilclose:hover{opacity:1}
+#imglb .ilnav{position:fixed;top:50%;transform:translateY(-50%);color:var(--bone);font-size:40px;background:none;border:none;cursor:pointer;opacity:.55;transition:opacity .2s;padding:10px 18px;font-family:'Cormorant Garamond',serif}
+#imglb .ilnav:hover{opacity:1}
+#imglb .ilprev{left:10px}#imglb .ilnext{right:10px}
+#gallery figure{cursor:pointer}
+@media(max-width:560px){#imglb .ilnav{font-size:30px;padding:6px 10px}#imglb img{max-height:74vh}}
 /* R3: perf */
 .sec{content-visibility:auto;contain-intrinsic-size:auto 700px}
 
@@ -440,33 +453,33 @@ html.ru [data-ru]{display:revert}
 <!-- ============ THREE POWERS ============ -->
 <section class="sec" id="powers">
   <div class="wrap">
-    <div class="ovl fade-up">II &middot; The Three Powers</div>
-    <h2 class="sec-title cut-in slashable">Self-mastery, shown three ways.</h2>
-    <p class="lede fade-up">One code, three disciplines of the same masterless self. The body is disciplined, the spirit becomes its own master, and the made object proves the code governs the whole life &mdash; not only the fight.</p>
+    <div class="ovl fade-up"><span data-en>II &middot; The Three Powers</span><span data-ru>II &middot; Три силы</span></div>
+    <h2 class="sec-title cut-in slashable"><span data-en>Self-mastery, shown three ways.</span><span data-ru>Самообладание в трёх обличьях.</span></h2>
+    <p class="lede fade-up"><span data-en>One code, three disciplines of the same masterless self. The body is disciplined, the spirit becomes its own master, and the made object proves the code governs the whole life &mdash; not only the fight.</span><span data-ru>Один кодекс, три дисциплины одного и того же вольного «я». Тело дисциплинируется, дух становится сам себе господином, а созданная вещь доказывает, что кодекс правит всей жизнью &mdash; не только боем.</span></p>
     <div class="powers">
-      <a href="#way" data-bio-open class="power pPhys fade-up">
+      <a href="#apply" class="power pPhys fade-up">
         <span class="pk jp">&#21247;</span>
-        <div class="pn">Physical Power</div>
-        <h3>The sword still carried</h3>
-        <p>Martial discipline and the conditioned body &mdash; trained force held under perfect restraint, where courage is proven by composure, not aggression.</p>
-        <ul><li>Martial arts &amp; combat skill</li><li>Body conditioning &amp; discipline</li><li>The warrior's standing code</li></ul>
-        <div class="enter">Enter &rarr;</div>
+        <div class="pn"><span data-en>Physical Power</span><span data-ru>Физическая сила</span></div>
+        <h3><span data-en>The sword still carried</span><span data-ru>Меч, что всё ещё носят</span></h3>
+        <p><span data-en>Martial discipline and the conditioned body &mdash; trained force held under perfect restraint, where courage is proven by composure, not aggression.</span><span data-ru>Воинская дисциплина и закалённое тело &mdash; обученная сила под совершенным самообладанием, где мужество доказывается невозмутимостью, а не агрессией.</span></p>
+        <ul><li><span data-en>Self-defence &amp; combat skills</span><span data-ru>Самооборона и боевые навыки</span></li><li><span data-en>Katana techniques &amp; rituals</span><span data-ru>Техники и ритуалы катаны</span></li><li><span data-en>Ninja mudras</span><span data-ru>Мудры ниндзя</span></li></ul>
+        <div class="enter"><span data-en>Enter &rarr;</span><span data-ru>Войти &rarr;</span></div>
       </a>
-      <a href="#way" data-bio-open class="power pSpir fade-up">
+      <a href="#apply" class="power pSpir fade-up">
         <span class="pk jp">&#27671;</span>
-        <div class="pn">Spiritual Power</div>
-        <h3>The inner sovereign</h3>
-        <p>The practice that makes a man his own lord &mdash; the stillness from which self-control is actually possible. Without it, the masterless man is merely lawless.</p>
-        <ul><li>Meditation</li><li>Breathing &middot; the "Breath In &amp; Out" way</li><li>Qigong &amp; energy work</li></ul>
-        <div class="enter">Enter &rarr;</div>
+        <div class="pn"><span data-en>Spiritual Power</span><span data-ru>Духовная сила</span></div>
+        <h3><span data-en>The inner sovereign</span><span data-ru>Внутренний государь</span></h3>
+        <p><span data-en>The practice that makes a man his own lord &mdash; the stillness from which self-control is actually possible. Without it, the masterless man is merely lawless.</span><span data-ru>Практика, что делает человека самому себе господином, &mdash; покой, из которого только и возможно самообладание. Без него человек без господина просто беззаконен.</span></p>
+        <ul><li><span data-en>Meditation</span><span data-ru>Медитация</span></li><li><span data-en>Breathing</span><span data-ru>Дыхание</span></li><li><span data-en>Qigong &amp; energy work</span><span data-ru>Цигун и работа с энергией</span></li></ul>
+        <div class="enter"><span data-en>Enter &rarr;</span><span data-ru>Войти &rarr;</span></div>
       </a>
-      <a href="#way" data-bio-open class="power pCrea fade-up">
+      <a href="#apply" class="power pCrea fade-up">
         <span class="pk jp">&#33464;</span>
-        <div class="pn">Creative Power</div>
-        <h3>Honour in peacetime</h3>
-        <p>The same disciplined hand that wields the blade now grinds ink, pours tea, reads a stone &mdash; honour made visible when there is no enemy in front of you.</p>
-        <ul><li>Calligraphy &middot; shodo</li><li>Tea ceremony</li><li>Mineralogy &middot; the power of stones</li></ul>
-        <div class="enter">Enter &rarr;</div>
+        <div class="pn"><span data-en>Creative Power</span><span data-ru>Творческая сила</span></div>
+        <h3><span data-en>Honour in peacetime</span><span data-ru>Честь в мирное время</span></h3>
+        <p><span data-en>The same disciplined hand that wields the blade now grinds ink, pours tea, reads a stone &mdash; honour made visible when there is no enemy in front of you.</span><span data-ru>Та же дисциплинированная рука, что держит клинок, теперь растирает тушь, разливает чай, читает камень &mdash; честь, ставшая зримой, когда перед тобой нет врага.</span></p>
+        <ul><li><span data-en>Calligraphy &middot; shodo</span><span data-ru>Каллиграфия &middot; сёдо</span></li><li><span data-en>Tea ceremony</span><span data-ru>Чайная церемония</span></li><li><span data-en>Mineralogy &middot; the power of stones</span><span data-ru>Минералогия &middot; сила камней</span></li></ul>
+        <div class="enter"><span data-en>Enter &rarr;</span><span data-ru>Войти &rarr;</span></div>
       </a>
     </div>
   </div>
@@ -475,38 +488,38 @@ html.ru [data-ru]{display:revert}
 <!-- ============ MASTERS / DIALOGUES (videos) ============ -->
 <section class="sec alt" id="masters">
   <div class="wrap">
-    <div class="ovl fade-up">IV &middot; Masters &amp; Dialogues</div>
-    <h2 class="sec-title cut-in slashable">The company he keeps.</h2>
-    <p class="lede fade-up">The "Breath In &amp; Out" dialogues &mdash; long-form conversations bridging warrior code and contemplative inquiry, with the masters and minds Mansur has sat with. <span style="color:var(--bronze-d)">Watch on YouTube.</span></p>
+    <div class="ovl fade-up"><span data-en>IV &middot; Masters &amp; Dialogues</span><span data-ru>IV &middot; Мастера и диалоги</span></div>
+    <h2 class="sec-title cut-in slashable"><span data-en>The company he keeps.</span><span data-ru>Круг, который он держит.</span></h2>
+    <p class="lede fade-up"><span data-en>The "Breath In &amp; Out" dialogues &mdash; long-form conversations bridging warrior code and contemplative inquiry, with the masters and minds Mansur has sat with. <span style="color:var(--bronze-d)">Watch on YouTube.</span></span><span data-ru>Диалоги «Вдох &amp; Выдох» &mdash; долгие беседы на стыке воинского кодекса и созерцательного поиска, с мастерами и мыслителями, с которыми сидел Мансур. <span style="color:var(--bronze-d)">Смотрите на YouTube.</span></span></p>
     <div class="vid-grid">
       <a class="vcard fade-up" data-yt="B0VXadXIVQs" href="https://www.youtube.com/watch?v=B0VXadXIVQs" target="_blank" rel="noopener">
         <img src="https://i.ytimg.com/vi/B0VXadXIVQs/hqdefault.jpg" alt="Zen Takai — 16th Generation Samurai and Ninja" loading="lazy">
         <div class="play"></div>
-        <div class="vmeta"><div class="vt">Zen Takai &mdash; 16th Generation Samurai &amp; Ninja</div><div class="vg">Breath In &amp; Out &middot; Ep 4</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>Zen Takai &mdash; 16th Generation Samurai &amp; Ninja</span><span data-ru>Зен Такай &mdash; самурай и ниндзя 16-го поколения</span></div><div class="vg"><span data-en>Breath In &amp; Out &middot; Ep 4</span><span data-ru>Вдох &amp; Выдох &middot; Эп. 4</span></div></div>
       </a>
       <a class="vcard fade-up" data-yt="xFI1sZbjWqs" href="https://www.youtube.com/watch?v=xFI1sZbjWqs" target="_blank" rel="noopener">
         <img src="https://i.ytimg.com/vi/xFI1sZbjWqs/hqdefault.jpg" alt="Shaolin Temple recap" loading="lazy">
         <div class="play"></div>
-        <div class="vmeta"><div class="vt">Shaolin Temple &mdash; recap</div><div class="vg">Breath In &amp; Out &middot; Ep 5</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>Shaolin Temple &mdash; recap</span><span data-ru>Шаолиньский храм &mdash; обзор</span></div><div class="vg"><span data-en>Breath In &amp; Out &middot; Ep 5</span><span data-ru>Вдох &amp; Выдох &middot; Эп. 5</span></div></div>
       </a>
       <a class="vcard fade-up" data-yt="-GCgSQAFYAU" href="https://www.youtube.com/watch?v=-GCgSQAFYAU" target="_blank" rel="noopener">
         <img src="https://i.ytimg.com/vi/-GCgSQAFYAU/hqdefault.jpg" alt="Arnis Ritups — philosopher" loading="lazy">
         <div class="play"></div>
-        <div class="vmeta"><div class="vt">Arnis Ritups &mdash; the philosopher</div><div class="vg">&#1042;&#1076;&#1086;&#1093; &amp; &#1042;&#1099;&#1076;&#1086;&#1093; &middot; Ep 1</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>Arnis Ritups &mdash; the philosopher</span><span data-ru>Арнис Ритупс &mdash; философ</span></div><div class="vg"><span data-en>Breath In &amp; Out &middot; Ep 1</span><span data-ru>Вдох &amp; Выдох &middot; Эп. 1</span></div></div>
       </a>
       <a class="vcard fade-up" data-yt="4fimXWPdQLI" href="https://www.youtube.com/watch?v=4fimXWPdQLI" target="_blank" rel="noopener">
         <img src="https://i.ytimg.com/vi/4fimXWPdQLI/hqdefault.jpg" alt="Vincent Lyn — humanitarian" loading="lazy">
         <div class="play"></div>
-        <div class="vmeta"><div class="vt">Vincent Lyn &mdash; the humanitarian</div><div class="vg">Breath In &amp; Out &middot; Ep 2</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>Vincent Lyn &mdash; the humanitarian</span><span data-ru>Винсент Лин &mdash; гуманист</span></div><div class="vg"><span data-en>Breath In &amp; Out &middot; Ep 2</span><span data-ru>Вдох &amp; Выдох &middot; Эп. 2</span></div></div>
       </a>
       <a class="vcard fade-up" data-yt="ij2LtlJykSg" href="https://www.youtube.com/watch?v=ij2LtlJykSg" target="_blank" rel="noopener">
         <img src="https://i.ytimg.com/vi/ij2LtlJykSg/hqdefault.jpg" alt="Mansur — Interlude" loading="lazy">
         <div class="play"></div>
-        <div class="vmeta"><div class="vt">Interlude &mdash; the film</div><div class="vg">Creative &middot; music</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>Interlude &mdash; the film</span><span data-ru>Интерлюдия &mdash; фильм</span></div><div class="vg"><span data-en>Creative &middot; music</span><span data-ru>Творчество &middot; музыка</span></div></div>
       </a>
       <a class="vcard fade-up" href="https://www.youtube.com/@EvisuDeluxe/videos" target="_blank" rel="noopener">
         <div class="ph" style="--ar:16/10"><span class="jp">&#35251;</span></div>
-        <div class="vmeta"><div class="vt">All dialogues &amp; films</div><div class="vg">YouTube &middot; @EvisuDeluxe</div></div>
+        <div class="vmeta"><div class="vt"><span data-en>All dialogues &amp; films</span><span data-ru>Все диалоги и фильмы</span></div><div class="vg">YouTube &middot; @EvisuDeluxe</div></div>
       </a>
     </div>
   </div>
@@ -546,37 +559,29 @@ html.ru [data-ru]{display:revert}
         <div class="era"><span data-en>The Pyrenees &middot; The Ice</span><span data-ru>Пиренеи &middot; Лёд</span></div>
         <h4><span data-en>Fifteen minutes with Wim Hof</span><span data-ru>Пятнадцать минут с Вимом Хофом</span></h4>
         <p><span data-en>In pursuit of the breath he went to the Pyrenees and spent time with the extreme athlete Wim Hof &mdash; the man who climbed toward Everest barefoot, in nothing but shorts. Fifteen minutes in ice water opened Mansur's eyes to the power of the mind. In breathwork that followed, often in groups of up to a hundred, he watched people release old trauma and transform in days &mdash; proof, on a scale he could not ignore, of what the breath can do.</span><span data-ru>В поисках дыхания он отправился в Пиренеи и провёл время с экстремальным атлетом Вимом Хофом &mdash; человеком, восходившим к Эвересту босиком, в одних плавательных шортах. Пятнадцать минут в ледяной воде открыли Мансуру силу сознания. В последующей дыхательной практике, нередко в группах до ста человек, он видел, как люди за считанные дни отпускают давние травмы и преображаются &mdash; доказательство такого масштаба, что его нельзя было не заметить.</span></p>
-        <figure class="node-photo fade-up"><img src="assets/m-wimhof.jpg" alt="Mansur Kohaku with Wim Hof in the Pyrenees mountains" loading="lazy"><figcaption class="cap"><span data-en>With Wim Hof &middot; the Pyrenees</span><span data-ru>С Вимом Хофом &middot; Пиренеи</span></figcaption></figure>
       </div>
 
       <div class="node fade-up">
         <div class="era"><span data-en>The Shaolin Line</span><span data-ru>Шаолиньская линия</span></div>
         <h4><span data-en>To Grandmaster Jiang Yu Shan</span><span data-ru>К грандмастеру Цзян Юй Шаню</span></h4>
         <p><span data-en>Across three years of month-long Shaolin study he travelled to the monastery under Shi Heng Yi, the renowned kung fu master &mdash; and through him reached his teacher: Grandmaster Jiang Yu Shan, a 33rd-generation Shaolin master living in Taiwan. Student and master grew close, the bond turning from teaching into something brotherly. They began to train and travel together &mdash; retreats in Romania, in Dubai, in Riga &mdash; forging one shared vision of what the modern warrior should be.</span><span data-ru>За три года, проводя по месяцу в шаолиньском обучении, он ездил в монастырь под руководством Ши Хэн И, известного мастера кунг-фу, и через него вышел на его учителя &mdash; грандмастера Цзян Юй Шаня, шаолиньского мастера в 33-м поколении, живущего на Тайване. Ученик и мастер сблизились, и связь из наставничества переросла в братскую. Они начали тренироваться и путешествовать вместе &mdash; ретриты в Румынии, в Дубае, в Риге &mdash; выковывая общее видение того, каким должен быть современный воин.</span></p>
-        <div class="node-photos">
-          <figure class="node-photo fade-up"><img src="assets/m-shihengyi.jpg" alt="Mansur Kohaku with the renowned kung fu master Shi Heng Yi" loading="lazy"><figcaption class="cap"><span data-en>With the kung fu master Shi Heng Yi</span><span data-ru>С мастером кунг-фу Ши Хэн И</span></figcaption></figure>
-          <figure class="node-photo fade-up"><img src="assets/m-jiang-shaolin.jpg" alt="Mansur Kohaku at the Shaolin Temple with Master Jiang" loading="lazy"><figcaption class="cap"><span data-en>In the Shaolin Temple with Jiang</span><span data-ru>В Шаолиньском храме с Цзяном</span></figcaption></figure>
-        </div>
       </div>
 
       <div class="node fade-up">
         <div class="era"><span data-en>Tsushima &middot; The Samurai Path</span><span data-ru>Цусима &middot; Путь самурая</span></div>
         <h4><span data-en>Initiated into the 17th generation</span><span data-ru>Посвящён в 17-е поколение</span></h4>
         <p><span data-en>Most of his life &mdash; now twenty-seven years of martial arts, soon twenty-eight &mdash; has been given to the Japanese way. In 2022&ndash;2023 he met sensei Zen Takai, a 16th-generation samurai from Fukuoka who teaches today on the island of Tsushima. There Mansur's depth reached a new level: the old knowledge &mdash; ninja mudras, reiki, kenjutsu, iaijutsu, jojutsu, shurikenjutsu &mdash; the arts the ancient Ainu and the people of the Ryukyu kept long before modern Japan. After the trials and a ceremony of initiation in a temple raised around the year 600 on Tsushima, sensei Zen Takai named him to the next, seventeenth, generation of samurai.</span><span data-ru>Бо&#769;льшая часть его жизни &mdash; ныне двадцать семь лет боевых искусств, скоро двадцать восемь &mdash; отдана японскому пути. В 2022&ndash;2023 годах он познакомился с сенсеем Зеном Такаем, самураем в 16-м поколении из Фукуоки, который сегодня преподаёт на острове Цусима. Там глубина знаний Мансура достигла нового уровня: древнее знание &mdash; мудры ниндзя, рейки, кэндзюцу, иайдзюцу, дзёдзюцу, сюрикэндзюцу &mdash; искусства, которые хранили древние айны и народ Рюкю задолго до современной Японии. После испытаний и церемонии посвящения в храме, построенном около 600 года на Цусиме, сенсей Зен Такай посвятил его в следующее, семнадцатое, поколение самураев.</span></p>
-        <figure class="node-photo fade-up"><img src="assets/m-tsushima.jpg" alt="Mansur Kohaku with sensei Zen Takai and fellow disciples on Tsushima" loading="lazy"><figcaption class="cap"><span data-en>The initiation &middot; Tsushima, with sensei Zen Takai</span><span data-ru>Посвящение &middot; Цусима, с сенсеем Зеном Такаем</span></figcaption></figure>
       </div>
 
       <div class="node fade-up">
         <div class="era"><span data-en>The Name &middot; 琥珀</span><span data-ru>Имя &middot; 琥珀</span></div>
         <h4><span data-en>Kohaku &mdash; the elder tiger</span><span data-ru>Кохаку &mdash; старший тигр</span></h4>
-        <figure class="node-photo node-photo-wide fade-up"><img src="assets/m-kohaku.jpg" alt="Mansur Kohaku receiving the named scroll from sensei Zen Takai" loading="lazy"><figcaption class="cap"><span data-en>The name conferred &middot; with sensei Zen Takai</span><span data-ru>Дарование имени &middot; с сенсеем Зеном Такаем</span></figcaption></figure>
         <p><span data-en>With the rank came a samurai name: <b style="color:var(--amber)">Kohaku</b> &mdash; rendered as the imperial, or elder, tiger. A samurai name marks a totem &mdash; a sum of a man's qualities, his fighting aura, his energy. Master Zen found Mansur's to be that of the tiger. The honour, he holds, is a responsibility: to teach and to carry forward ancient knowledge that &mdash; unless masters and young masters keep it &mdash; will simply be lost, left only as a line in the history books.</span><span data-ru>Со званием пришло самурайское имя: <b style="color:var(--amber)">Кохаку</b> &mdash; «императорский», или старший, тигр. Самурайское имя обозначает тотем &mdash; совокупность качеств человека, его боевую ауру, его энергетику. Мастер Зен счёл, что у Мансура она тигриная. Эту честь он понимает как ответственность: учить и нести дальше древнее знание, которое &mdash; если его не сохранят мастера и молодые мастера &mdash; будет просто утрачено и останется лишь строкой в летописи.</span></p>
       </div>
 
       <div class="node fade-up">
         <div class="era"><span data-en>The Power</span><span data-ru>Сила</span></div>
         <h4><span data-en>The sword &mdash; trained under Shidoshi Jordan Augusto</span><span data-ru>Меч &mdash; обучение под началом сидоси Джордана Аугусто</span></h4>
-        <figure class="node-photo node-photo-wide fade-up"><img src="assets/m-jordan.jpg" alt="Mansur Kohaku training with world-renowned sword master Shidoshi Jordan Augusto" loading="lazy"><figcaption class="cap"><span data-en>With Shidoshi Jordan Augusto &middot; the sword</span><span data-ru>С сидоси Джорданом Аугусто &middot; меч</span></figcaption></figure>
         <p><span data-en><b style="color:var(--amber)">Shidoshi Jordan Augusto</b> &mdash; a world-renowned sword master &mdash; trains Mansur in the blade. A <em>shidoshi</em> ("teacher of the warrior way") is a licensed master of the classical Japanese tradition, and under his instruction Mansur sharpens the hard edge of the path: kenjutsu and iaijutsu, the geometry of the cut, the discipline of the draw. If the breath and the brush are the soft half of the eighteen arts, the sword is the hard half &mdash; and it is kept honest only by training under a true master of it.</span><span data-ru><b style="color:var(--amber)">Сидоси Джордан Аугусто</b> &mdash; сордсмастер мирового уровня &mdash; обучает Мансура работе с мечом. <em>Сидоси</em> («наставник пути воина») &mdash; это лицензированный мастер классической японской традиции, и под его руководством Мансур оттачивает твёрдую сторону пути: кэндзюцу и иайдзюцу, геометрию удара, дисциплину обнажения клинка. Если дыхание и кисть &mdash; мягкая половина восемнадцати искусств, то меч &mdash; твёрдая; и честным он остаётся лишь в обучении у истинного мастера.</span></p>
       </div>
 
@@ -601,15 +606,21 @@ html.ru [data-ru]{display:revert}
 <!-- ============ GALLERY ============ -->
 <section class="sec alt" id="gallery">
   <div class="wrap">
-    <div class="ovl fade-up">VI &middot; The Path in Images</div>
-    <h2 class="sec-title cut-in slashable">Masters. Festivals. Practice.</h2>
+    <div class="ovl fade-up"><span data-en>VI &middot; The Path in Images</span><span data-ru>VI &middot; Путь в образах</span></div>
+    <h2 class="sec-title cut-in slashable"><span data-en>Masters. Festivals. Practice.</span><span data-ru>Мастера. Фестивали. Практика.</span></h2>
     <div class="gtabs fade-up" id="gtabs">
-      <button class="gtab on" data-f="all">All</button>
-      <button class="gtab" data-f="masters">With Masters</button>
-      <button class="gtab" data-f="festivals">Festivals</button>
-      <button class="gtab" data-f="practice">Practices</button>
+      <button class="gtab on" data-f="all"><span data-en>All</span><span data-ru>Все</span></button>
+      <button class="gtab" data-f="masters"><span data-en>With Masters</span><span data-ru>С мастерами</span></button>
+      <button class="gtab" data-f="festivals"><span data-en>Festivals</span><span data-ru>Фестивали</span></button>
+      <button class="gtab" data-f="practice"><span data-en>Practices</span><span data-ru>Практики</span></button>
     </div>
     <div class="gallery" id="gallery">
+      <figure data-c="masters"><img src="assets/m-jordan.jpg" alt="Mansur Kohaku training with world-renowned sword master Shidoshi Jordan Augusto" loading="lazy"><figcaption><span data-en>With Shidoshi Jordan Augusto &middot; the sword</span><span data-ru>С сидоси Джорданом Аугусто &middot; меч</span></figcaption></figure>
+      <figure data-c="masters"><img src="assets/m-tsushima.jpg" alt="Mansur Kohaku with sensei Zen Takai and fellow disciples on Tsushima" loading="lazy"><figcaption><span data-en>The initiation &middot; Tsushima, with sensei Zen Takai</span><span data-ru>Посвящение &middot; Цусима, с сенсеем Зеном Такаем</span></figcaption></figure>
+      <figure data-c="masters"><img src="assets/m-kohaku.jpg" alt="Mansur Kohaku receiving the named scroll from sensei Zen Takai" loading="lazy"><figcaption><span data-en>The name conferred &middot; with sensei Zen Takai</span><span data-ru>Дарование имени &middot; с сенсеем Зеном Такаем</span></figcaption></figure>
+      <figure data-c="masters"><img src="assets/m-shihengyi.jpg" alt="Mansur Kohaku with the renowned kung fu master Shi Heng Yi" loading="lazy"><figcaption><span data-en>With the kung fu master Shi Heng Yi</span><span data-ru>С мастером кунг-фу Ши Хэн И</span></figcaption></figure>
+      <figure data-c="masters"><img src="assets/m-jiang-shaolin.jpg" alt="Mansur Kohaku at the Shaolin Temple with Master Jiang" loading="lazy"><figcaption><span data-en>In the Shaolin Temple with Jiang</span><span data-ru>В Шаолиньском храме с Цзяном</span></figcaption></figure>
+      <figure data-c="masters"><img src="assets/m-wimhof.jpg" alt="Mansur Kohaku with Wim Hof in the Pyrenees mountains" loading="lazy"><figcaption><span data-en>With Wim Hof &middot; the Pyrenees</span><span data-ru>С Вимом Хофом &middot; Пиренеи</span></figcaption></figure>
       <figure data-c="practice"><img src="assets/g1.jpg" alt="Mansur Kohaku in samurai dress with katana" loading="lazy"><figcaption><span data-en>The way of the blade</span><span data-ru>Путь меча</span></figcaption></figure>
       <figure data-c="practice"><img src="assets/g2.jpg" alt="Mansur Kohaku in a sword stance" loading="lazy"><figcaption><span data-en>Practice &middot; the cut</span><span data-ru>Практика &middot; удар</span></figcaption></figure>
       <figure data-c="practice"><img src="assets/g4.jpg" alt="Mansur Kohaku, sword raised overhead" loading="lazy"><figcaption><span data-en>Practice &middot; the strike</span><span data-ru>Практика &middot; замах</span></figcaption></figure>
@@ -628,7 +639,7 @@ html.ru [data-ru]{display:revert}
 </section>
 
 <!-- ============ CTA ============ -->
-<section class="sec dark">
+<section class="sec dark" id="apply">
   <div class="cta-band">
     <div class="ovl fade-up" style="text-align:center"><span data-en>Begin</span><span data-ru>Начало</span></div>
     <h2 class="cut-in slashable"><span data-en>Strength is the hand that stays calm.</span><span data-ru>Сила &mdash; это рука, что остаётся спокойной.</span></h2>
@@ -643,7 +654,7 @@ html.ru [data-ru]{display:revert}
     <div class="apply-ok fade-up" hidden><span data-en>Received. Mansur's circle will be in touch.</span><span data-ru>Получено. Круг Мансура свяжется с вами.</span></div>
     <div class="cap01 fade-up"><span data-en>No payment here &mdash; just an application. The path is selective.</span><span data-ru>Здесь нет оплаты &mdash; только заявка. Путь избирателен.</span></div>
     <div class="fade-up" style="margin-top:22px;text-align:center">
-      <a href="https://www.instagram.com/mansur_ronin" target="_blank" rel="noopener" class="btn ghost">Follow @mansur_ronin</a>
+      <a href="https://www.instagram.com/mansur_ronin" target="_blank" rel="noopener" class="btn ghost"><span data-en>Follow @mansur_ronin</span><span data-ru>Подписаться @mansur_ronin</span></a>
     </div>
   </div>
 </section>
@@ -653,29 +664,37 @@ html.ru [data-ru]{display:revert}
   <div class="wrap">
     <div class="frow">
       <div>
-        <div class="fbrand">Ronin&#8209;do<small>Mansur Kohaku &middot; 17th Generation Samurai</small></div>
-        <p style="max-width:340px;margin-top:12px;font-size:12.5px;color:rgba(251,244,228,.55)">A masterless samurai embodies inner freedom through independence and spiritual balance &mdash; between Chechen Adat and Japanese Bushido.</p>
+        <div class="fbrand">Ronin&#8209;do<small><span data-en>Mansur Kohaku &middot; 17th Generation Samurai</span><span data-ru>Мансур Кохаку &middot; самурай 17-го поколения</span></small></div>
+        <p style="max-width:340px;margin-top:12px;font-size:12.5px;color:rgba(251,244,228,.55)"><span data-en>A masterless samurai embodies inner freedom through independence and spiritual balance &mdash; between Chechen Adat and Japanese Bushido.</span><span data-ru>Самурай без господина воплощает внутреннюю свободу через независимость и духовное равновесие &mdash; между чеченским адатом и японским бусидо.</span></p>
       </div>
       <div class="fcol">
-        <h5>The Way</h5>
-        <a href="#powers">The Three Powers</a>
-        <a href="#way" data-bio-open>The Journey</a>
-        <a href="#masters">Masters &amp; Dialogues</a>
+        <h5><span data-en>The Way</span><span data-ru>Путь</span></h5>
+        <a href="#powers"><span data-en>The Three Powers</span><span data-ru>Три силы</span></a>
+        <a href="#way" data-bio-open><span data-en>The Journey</span><span data-ru>Путь жизни</span></a>
+        <a href="#masters"><span data-en>Masters &amp; Dialogues</span><span data-ru>Мастера и диалоги</span></a>
       </div>
       <div class="fcol">
-        <h5>Watch &amp; Follow</h5>
-        <a href="https://www.youtube.com/@EvisuDeluxe/videos" target="_blank" rel="noopener">YouTube &middot; Dialogues</a>
+        <h5><span data-en>Watch &amp; Follow</span><span data-ru>Смотреть и следить</span></h5>
+        <a href="https://www.youtube.com/@EvisuDeluxe/videos" target="_blank" rel="noopener">YouTube &middot; <span data-en>Dialogues</span><span data-ru>Диалоги</span></a>
         <a href="https://www.instagram.com/mansur_ronin" target="_blank" rel="noopener">Instagram &middot; @mansur_ronin</a>
       </div>
     </div>
-    <div class="fnote">&copy; 2026 Ronin-do &middot; Mansur Kohaku. The way of the masterless man. &mdash; Biography confirmed by Mansur. With-masters &amp; festival imagery still to be added.</div>
+    <div class="fnote"><span data-en>&copy; 2026 Ronin-do &middot; Mansur Kohaku. The way of the masterless man.</span><span data-ru>&copy; 2026 Ronin-do &middot; Мансур Кохаку. Путь вольного человека.</span></div>
   </div>
 </footer>
 
 <!-- VIDEO LIGHTBOX -->
 <div id="lb"><div class="lbx"><button class="lbclose" aria-label="close">&#10005;</button><iframe id="lbf" allow="autoplay; encrypted-media" allowfullscreen></iframe></div></div>
 
-<div class="disc">Preview &mdash; biography, lineage &amp; generation confirmed by Mansur. Pending before public launch: with-masters &amp; festival photographs (and the new anime imagery).</div>
+<!-- IMAGE LIGHTBOX -->
+<div id="imglb" role="dialog" aria-modal="true" aria-label="Photograph">
+  <button class="ilclose" aria-label="Close">&#10005;</button>
+  <button class="ilnav ilprev" aria-label="Previous">&#8249;</button>
+  <figure><img id="imglb-img" src="" alt=""><figcaption id="imglb-cap"></figcaption></figure>
+  <button class="ilnav ilnext" aria-label="Next">&#8250;</button>
+</div>
+
+<div class="disc"><span data-en>Ronin-do &middot; Mansur Kohaku &mdash; the way of the masterless samurai. Chechen Adat &times; Japanese Bushido.</span><span data-ru>Ronin-do &middot; Мансур Кохаку &mdash; путь самурая без господина. Чеченский адат &times; японский бусидо.</span></div>
 
 <script>
 const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
@@ -1038,6 +1057,50 @@ const reduce = matchMedia('(prefers-reduced-motion:reduce)').matches;
   close.addEventListener('click',shut);
   lb.addEventListener('click',e=>{ if(e.target===lb) shut(); });
   addEventListener('keydown',e=>{ if(e.key==='Escape') shut(); });
+})();
+
+/* Image lightbox — click a gallery photo to open it full-screen, with prev/next over the visible (filtered) set */
+(function(){
+  var box=document.getElementById('imglb'); if(!box) return;
+  var bigImg=document.getElementById('imglb-img'), cap=document.getElementById('imglb-cap');
+  var gal=document.getElementById('gallery'); if(!gal) return;
+  var figs=[].slice.call(gal.querySelectorAll('figure'));
+  var cur=-1;
+  function visibleFigs(){ return figs.filter(function(f){ return getComputedStyle(f).display!=='none'; }); }
+  function capFor(fig){
+    var isRu=document.documentElement.classList.contains('ru');
+    var c=fig.querySelector('figcaption'); if(!c) return '';
+    var s=c.querySelector('span[data-'+(isRu?'ru':'en')+']');
+    return (s?s.textContent:c.textContent).trim();
+  }
+  function show(fig){
+    var img=fig.querySelector('img'); if(!img) return;
+    bigImg.src=img.currentSrc||img.src; bigImg.alt=img.alt||'';
+    cap.textContent=capFor(fig);
+    cur=figs.indexOf(fig);
+  }
+  function openFig(fig){ show(fig); box.classList.add('on'); document.body.style.overflow='hidden'; }
+  function shut(){ box.classList.remove('on'); document.body.style.overflow=''; bigImg.src=''; }
+  function step(dir){
+    var vis=visibleFigs(); if(!vis.length) return;
+    var idx=vis.indexOf(figs[cur]);
+    idx=(idx+dir+vis.length)%vis.length;
+    show(vis[idx]);
+  }
+  gal.addEventListener('click',function(e){
+    var fig=e.target.closest('figure'); if(!fig||!gal.contains(fig)) return;
+    openFig(fig);
+  });
+  box.querySelector('.ilclose').addEventListener('click',shut);
+  box.querySelector('.ilprev').addEventListener('click',function(e){ e.stopPropagation(); step(-1); });
+  box.querySelector('.ilnext').addEventListener('click',function(e){ e.stopPropagation(); step(1); });
+  box.addEventListener('click',function(e){ if(e.target===box) shut(); });
+  addEventListener('keydown',function(e){
+    if(!box.classList.contains('on')) return;
+    if(e.key==='Escape') shut();
+    else if(e.key==='ArrowLeft') step(-1);
+    else if(e.key==='ArrowRight') step(1);
+  });
 })();
 
 /* Course application form -> Formspree (emails the submission, shows inline thanks) */
